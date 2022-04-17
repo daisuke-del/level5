@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mysql000level2:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    platform: linux/x86_64
+    ports:
+      - "3306:3306"
+    networks:
+      - level000net2
+    volumes:
+      - mysql000vol2:/var/lib/mysql
+        #- ./mysql/my.cnf:/etc/my.cnf
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOTPASS}
+      MYSQL_DATABASE: ${DATABASE}
+      MYSQL_USER: ${USER}
+      MYSQL_PASSWORD: ${USERPASS}
+  php000level2:
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql000level2
+    networks:
+      - level000net2
+    volumes:
+      - ./php/level:/var/www/html
+    ports:
+      - "8090:80"
+    restart: always
+networks:
+  level000net2:
+volumes:
+  mysql000vol2:
+  apa000vol2:

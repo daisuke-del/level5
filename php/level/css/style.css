@@ -1,0 +1,179 @@
+@charset "utf-8";
+
+body {
+  font-family: "Avenir Next";
+}
+
+.header {
+  color: #fff;
+  background-color: #26d0c9;
+  height: 80px;
+  width: 100%;
+}
+
+.header-logo {
+  float: left;
+  font-size: 25px;
+  padding: 20px 60px;
+}
+
+.header-right {
+  float: right;
+  margin-right: -10px;
+}
+
+.menu-icon {
+  display: none;
+  color: #fff;
+  float: right;
+  font-size: 25px;
+  padding: 21px 0;
+}
+
+.header-right a {
+  line-height: 80px;
+  padding: 0 25px;
+  color: #fff;
+  display: block;
+  float: left;
+  transition: all 0.5s;
+}
+
+.header-right a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+nav {
+  display: none;
+}
+
+
+
+.thumbnail {
+  display: inline-block;
+  height: 250px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.thumbnail img {
+  height: 100%;
+}
+
+.faceimages {
+    height: 250px;
+  }
+
+li {
+  list-style: none;
+}
+
+input[type=radio]+label:before{
+  content: "";
+  display: inline-block;
+  background-size: cover;
+  width: 140px;
+  height: 140px;
+}
+
+input[type=submit]+label:before{
+  content: "";
+  display: inline-block;
+  background-size: cover;
+  width: 140px;
+  height: 140px;
+}
+
+input[type=radio][value="man"]+label:before{
+  background-image: url(../image/sex_man.jpeg);
+}
+input[type=radio][value="woman"]+label:before{
+  background-image: url(../image/sex_woman.jpeg);
+}
+input[type=submit][id="workplace"]+label:before{
+  background-image: url(../image/workplace.jpeg);
+}
+input[type=submit][id="jointparty"]+label:before{
+  background-image: url(../image/jointparty.jpeg);
+}
+input[type=submit][id="introduction"]+label:before{
+  background-image: url(../image/introduction.jpeg);
+}
+input[type=submit][id="tinder"]+label:before{
+  background-image: url(../image/tinder.jpeg);
+}
+input[type=submit][id="pairs"]+label:before{
+  background-image: url(../image/pairs.jpeg);
+}
+input[type=submit][id="club"]+label:before{
+  background-image: url(../image/club.jpeg);
+}
+
+
+input[type=radio]:checked+label::before{
+  border: 3px solid #3eb370;
+  box-sizing: border-box;
+  opacity: 0.8;
+}
+input[type=radio]{
+  display: none;
+} 
+
+.submits input[type=submit]:checked+label::before{
+  border: 3px solid #3eb370;
+  box-sizing: border-box;
+  opacity: 0.8;
+}
+.submits input[type=submit]{
+  display: none;
+} 
+
+.choice_submits input[type=submit]{
+  display: none;
+}
+
+/*ここからフッターのcss*/
+.footer {
+  color: #fff;
+  background-color: #12475f;
+  height: 120px;
+  width: 100%;
+}
+
+.footer-left {
+  float: left;
+  margin-left: -10px;
+}
+
+.footer-left a {
+  padding: 0 25px;
+  color: #fff;
+}
+
+@media(max-width: 800px) {
+  .header-right {
+    display: none;
+  }
+
+
+  .menu-icon {
+    display: block;
+    padding-right: 30px;
+    margin-top: 5px;
+  }
+
+  .nav {
+    display: block;
+    float: right;
+    margin-right: 15px;
+  }
+
+  .nav ul li {
+    list-style: none;
+  }
+
+  .nav ul li a {
+    color: black;
+    background-color: white;
+  }
+
+}
