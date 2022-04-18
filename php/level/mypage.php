@@ -108,7 +108,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['sex'])) {//ログインして�
     <p>現在の顔面偏差値レベル：<?php echo $face?></p>
     <p>顔面偏差値の妥当性：<?php echo $day?>日</p>
     <p>※妥当性は顔写真画像の最終更新日からの日数を表示</p>
-    <img src="<?php echo $file ?><?php echo $image?>" width="300" height="300">
+    <img src="<?php echo $file ?><?php echo $image?>" height="300">
     <p>年齢：<?php echo $age?>歳</p>
     <p>年収：<?php echo $salary?>万円</p>
     <p>身長：<?php echo $hight?>cm</p>
