@@ -79,9 +79,48 @@ if($_SESSION['sex'] == 'man'){
   $faceimage = 'face_image';
 }
 
-if(isset($_FILES)){
+if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
 
-$update_faceimage = uniqid(mt_rand(), true);//ファイル名をユニーク化
+ //DB接続
+ $dsn = "mysql:host={$host};dbname={$dbname};charset=utf8";
+ $pdo = new PDO($dsn, $user, $password);
+ 
+ #$sql = "UPDATE :bbs SET email = :update_email, name = :update_name, age = :update_age, salary = :update_salary, hight = :update_hight, weight = :update_weight, salary2 = :update_salary2, age2 = :update_age2, hight2 = :update_hight2, weight2 = :update_weight2 WHERE email = :email";
+ 
+ //データを更新
+ $sql = "UPDATE $bbs SET email = '$update_email', name = '$update_name', age = $update_age, salary = $update_salary, hight = $update_hight, weight = $update_weight, salary2 = $update_salary2, age2 = $update_age2, hight2 = $update_hight2, weight2 = $update_weight2 WHERE email = '$email'";
+ 
+ $stm = $pdo->prepare($sql);
+ 
+ /*
+ $stm->bindValue(':bbs',$bbs,PDO::PARAM_STR);
+ $stm->bindValue(':update_email',$update_email,PDO::PARAM_STR);
+ $stm->bindValue(':update_name',$update_name,PDO::PARAM_STR);
+ $stm->bindValue(':update_salary',$update_salary,PDO::PARAM_INT);
+ $stm->bindValue(':update_age',$update_age,PDO::PARAM_INT);
+ $stm->bindValue(':update_hight',$update_hight,PDO::PARAM_INT);
+ $stm->bindValue(':update_weight',$update_weight,PDO::PARAM_INT);
+ $stm->bindValue(':update_salary2',$update_salary2,PDO::PARAM_INT);
+ $stm->bindValue(':update_age2',$update_age2,PDO::PARAM_INT);
+ $stm->bindValue(':update_hight2',$update_hight2,PDO::PARAM_INT);
+ $stm->bindValue(':update_weight2',$update_weight2,PDO::PARAM_INT);
+ $stm->bindValue(':email',$email,PDO::PARAM_STR);
+ */
+ 
+ $stm->execute();
+ 
+ //更新後データをセッションに格納し直す
+ $_SESSION['email'] = $update_email ;
+ $_SESSION['name'] = $update_name ;
+ $_SESSION['age'] = $update_age ;
+ $_SESSION['salary'] = $update_salary ;
+ $_SESSION['hight'] = $update_hight ;
+ $_SESSION['weight'] = $update_weight ;
+ $_SESSION['email'] = $email ;
+
+}else{
+
+  $update_faceimage = uniqid(mt_rand(), true);//ファイル名をユニーク化
   $update_faceimage .= '.' . substr(strrchr($_FILES['image']['name'], '.'), 1);//アップロードされたファイルの拡張子を取得
   $file = "image/$faceimage/$update_faceimage";
   if (!empty($_FILES['image']['name'])) {//ファイルが選択されていれば$facesimageにファイル名を代入
@@ -140,43 +179,6 @@ $_SESSION['hight'] = $update_hight ;
 $_SESSION['weight'] = $update_weight ;
 $_SESSION['email'] = $email ;
 
-}else{
-  //DB接続
-$dsn = "mysql:host={$host};dbname={$dbname};charset=utf8";
-$pdo = new PDO($dsn, $user, $password);
-
-#$sql = "UPDATE :bbs SET email = :update_email, name = :update_name, age = :update_age, salary = :update_salary, hight = :update_hight, weight = :update_weight, salary2 = :update_salary2, age2 = :update_age2, hight2 = :update_hight2, weight2 = :update_weight2 WHERE email = :email";
-
-//データを更新
-$sql = "UPDATE $bbs SET email = '$update_email', name = '$update_name', age = $update_age, salary = $update_salary, hight = $update_hight, weight = $update_weight, salary2 = $update_salary2, age2 = $update_age2, hight2 = $update_hight2, weight2 = $update_weight2 WHERE email = '$email'";
-
-$stm = $pdo->prepare($sql);
-
-/*
-$stm->bindValue(':bbs',$bbs,PDO::PARAM_STR);
-$stm->bindValue(':update_email',$update_email,PDO::PARAM_STR);
-$stm->bindValue(':update_name',$update_name,PDO::PARAM_STR);
-$stm->bindValue(':update_salary',$update_salary,PDO::PARAM_INT);
-$stm->bindValue(':update_age',$update_age,PDO::PARAM_INT);
-$stm->bindValue(':update_hight',$update_hight,PDO::PARAM_INT);
-$stm->bindValue(':update_weight',$update_weight,PDO::PARAM_INT);
-$stm->bindValue(':update_salary2',$update_salary2,PDO::PARAM_INT);
-$stm->bindValue(':update_age2',$update_age2,PDO::PARAM_INT);
-$stm->bindValue(':update_hight2',$update_hight2,PDO::PARAM_INT);
-$stm->bindValue(':update_weight2',$update_weight2,PDO::PARAM_INT);
-$stm->bindValue(':email',$email,PDO::PARAM_STR);
-*/
-
-$stm->execute();
-
-//更新後データをセッションに格納し直す
-$_SESSION['email'] = $update_email ;
-$_SESSION['name'] = $update_name ;
-$_SESSION['age'] = $update_age ;
-$_SESSION['salary'] = $update_salary ;
-$_SESSION['hight'] = $update_hight ;
-$_SESSION['weight'] = $update_weight ;
-$_SESSION['email'] = $email ;
 }
 
 $smg = '登録情報を更新しました';
